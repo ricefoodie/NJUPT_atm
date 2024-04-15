@@ -2,61 +2,105 @@
 
 #pragma once
 
-#include <fstream>
-#include <string>
-#include <iostream>
 #include "Account.h"
-#include "VigenereCipher.h"
+#include "EncryptionUtilities.h"
+#include <iostream>
+#include <fstream>
+#include <sstream>
 
 class FileHandler {
-private:
-    // 设置一个固定的密钥
-    std::string key = "VigenereKey"; 
-
 public:
-    // 将账户信息写入文件
-    static void writeAccountToFile(const Account& account) {
-        VigenereCipher cipher;
-
-        std::ofstream file("accounts.dat", std::ios::app); // 追加模式
-        if (file.is_open()) {
-            file << account.getID() << " ";
-            file << account.getName() << " ";
-            // 使用VigenereCipher加密密码并写入文件
-            file << cipher.encrypt(account.getPassword(), "VigenereKey") << " ";
-            file << account.getBalance() << "\n";
-            file.close();
+    // 写入账户信息至文件
+    static bool writeAccountToFile(const Account& account, int key) {
+        std::ofstream fileOut("accounts.dat", std::ios::app); // 使用追加模式
+        if (!fileOut) {
+            std::cerr << "无法打开文件写入。\n";
+            return false;
         }
-        else {
-            std::cerr << "无法打开文件写入账户信息。\n";
-        }
+        fileOut << EncryptionUtilities::encryptDecrypt(account.getID(), key)
+            << account.getName() << " "
+            << EncryptionUtilities::encryptDecrypt(account.getPassword(), key) << " "
+            << account.getBalance() << std::endl;
+        fileOut.close();
+        return true;
     }
 
     // 从文件中读取账户信息并验证密码
-    static bool verifyAccountLogin(const std::string& id, const std::string& password) {
-        VigenereCipher cipher;
+    static bool verifyAccountPassword(const std::string& id, const std::string& password, int key) {
+        std::ifstream fileIn("accounts.dat");
+        if (!fileIn) {
+            std::cerr << "无法打开文件读取。\n";
+            return false;
+        }
 
-        std::ifstream file("accounts.dat");
-        if (file.is_open()) {
-            std::string fileID, fileName, fileEncryptedPassword;
+        std::string line;
+        while (std::getline(fileIn, line)) {
+            std::istringstream iss(line);
+            std::string fileID, filePassword, fileName;
             double fileBalance;
-
-            while (file >> fileID >> fileName >> fileEncryptedPassword >> fileBalance) {
-                // 如果找到匹配的ID，尝试解密并验证密码
-                if (fileID == id) {
-                    // 使用VigenereCipher的解密函数解密文件中的密码
-                    std::string decryptedPassword = cipher.decrypt(fileEncryptedPassword,"VigenereKey");
-                    std::cout << decryptedPassword << std::endl ;
-                    // 比较解密后的密码与用户输入密码是否相同
-                    return decryptedPassword == password;
+            if (iss >> fileID >> fileName>> filePassword >> fileBalance) {
+                if (fileID == id &&
+                    EncryptionUtilities::encryptDecrypt(filePassword, -key) == password) {
+                    fileIn.close();
+                    return true;
                 }
             }
-            file.close();
-            std::cerr << "账户ID未找到。\n";
         }
-        else {
-            std::cerr << "无法打开文件进行验证。\n";
-        }
+        fileIn.close();
         return false;
     }
+    // 更新账户密码
+    static bool updatePassword(const std::string& id, const std::string& oldPassword, const std::string& newPassword, int key) {
+        // 使用一个临时文件存储新的账户信息
+        std::string tempFilename = "accounts_temp.dat";
+        std::ifstream file("accounts.dat");
+        std::ofstream tempFile(tempFilename);
+
+        bool isUpdated = false;
+        if (file.is_open() && tempFile.is_open()) {
+            std::string fileID, fileName, filePassword;
+            double fileBalance;
+
+            while (file >> fileID >> fileName >> filePassword >> fileBalance) {
+                if (fileID == EncryptionUtilities::encryptDecrypt(id, -key)) {
+                    // 解密并比较密码
+                    std::string decryptedPassword = EncryptionUtilities::encryptDecrypt(filePassword, -key);
+                    if (decryptedPassword == oldPassword) {
+                        // 若旧密码正确，使用新密码并加密后写入临时文件
+                        isUpdated = true;
+                        filePassword = EncryptionUtilities::encryptDecrypt(newPassword, key);
+                    }
+                    else {
+                        // 旧密码不正确，不更新信息，返回失败
+                        std::cerr << "旧密码不正确，无法更新。\n";
+                        return false;
+                    }
+                }
+                // 将账户信息写入临时文件中
+                tempFile << fileID << " " << fileName << " " << filePassword << " " << fileBalance << "\n";
+            }
+
+            file.close();
+            tempFile.close();
+
+            if (isUpdated) {
+                // 使用新的账户文件替换旧的文件
+                remove("accounts.dat");
+                rename(tempFilename.c_str(), "accounts.dat");
+            }
+            else {
+                // 若没有更新任何内容，删除临时文件
+                remove(tempFilename.c_str());
+                std::cerr << "没有找到对应的账户进行更新。\n";
+            }
+
+        }
+        else {
+            std::cerr << "无法打开文件进行更新。\n";
+            return false;
+        }
+        return isUpdated;
+    }
 };
+
+

@@ -4,9 +4,7 @@
 #include <fstream>
 #include <iostream>
 #include "FileHandler.h"
-
-
-#include <iostream>
+#include <limits>
 #include <string>
 #include <cctype>
 
@@ -24,11 +22,19 @@ void createAccount() {
     std::cout << "请输入账户初始余额: ";
     std::cin >> balance;
 
+    // 创建账户实例
     Account newAccount(id, name, password, balance);
-    FileHandler::writeAccountToFile(newAccount);
-    std::cout << "账户创建成功！\n";
+
+    // 写入文件
+    if (FileHandler::writeAccountToFile(newAccount, 5)) {
+        std::cout << "账户创建成功！\n";
+    }
+    else {
+        std::cout << "账户创建失败，请稍后再试。\n";
+    }
 }
 
+// 验证登录的函数
 // 验证登录的函数
 void verifyLogin() {
     std::string id, password;
@@ -38,54 +44,57 @@ void verifyLogin() {
     std::cout << "请输入密码: ";
     std::cin >> password;
 
-    if (FileHandler::verifyAccountLogin(id, password)) {
-        std::cout << "密码验证成功！\n";
+    if (FileHandler::verifyAccountPassword(id, password, 5)) {
+        std::cout << "密码验证成功，欢迎登陆！\n";
     }
     else {
-        std::cout << "密码验证失败！\n";
+        std::cout << "密码验证失败，卡号或密码错误。\n";
     }
 }
-/*
+
+
 int main() {
-    int choice;
+    while (1)
+    {
+        std::cout << "ATM系统\n";
+        std::cout << "0. 退出\n";
+        std::cout << "1. 创建账户\n";
+        std::cout << "2. 验证密码\n";
+        std::cout << "3. 修改密码\n";
+        std::cout << "请选择一个选项: ";
 
-    std::cout << "请选择操作：\n";
-    std::cout << "1. 创建账户\n";
-    std::cout << "2. 验证登录\n";
-    std::cin >> choice;
+        int option;
+        std::cin >> option;
 
-    switch (choice) {
-    case 1:
-        createAccount();
-        break;
-    case 2:
-        verifyLogin();
-        break;
-    default:
-        std::cout << "无效选项。\n";
+        switch (option) {
+        case 1:
+            createAccount();
+            break;
+        case 2:
+            verifyLogin();
+            break;
+        case 3: {
+            std::string id = "123";
+            int key = 5;
+            std::string oldPassword, newPassword;
+            std::cout << "oldpassword:";
+            std::cin >> oldPassword;
+            std::cout << "newpassword:";
+            std::cin >> newPassword;
+            bool passwordChanged = FileHandler::updatePassword(id, oldPassword, newPassword, key);
+            if (passwordChanged) {
+                std::cout << "密码更新成功！" << std::endl;
+            }
+            else {
+                std::cout << "密码更新失败。" << std::endl;
+            }
+        }
+        case 0:
+            return 0;
+        default:
+            std::cout << "无效选项，请重新选择。\n";
+            break;
+        }
     }
-
-    return 0;
-}
-
-*/
-int main() {
-    VigenereCipher cipher;
-
-    // 示例明文和密钥
-    std::string plaintext = "Hello123World";
-    std::string key = "VIGENERECIPHERKEY";
-
-    std::cout << "Original text : " << plaintext << "\n";
-    std::cout << "Key           : " << key << "\n";
-
-    // 加密
-    std::string encryptedText = cipher.encrypt(plaintext, key);
-    std::cout << "Encrypted text: " << encryptedText << "\n";
-
-    // 解密
-    std::string decryptedText = cipher.decrypt(encryptedText, key);
-    std::cout << "Decrypted text: " << decryptedText << "\n";
-
-    return 0;
+    
 }

@@ -15,14 +15,34 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="a.cpp">
+    <ClCompile Include="FileHandler.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="b.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="c.cpp">
+    <ClCompile Include="Account.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Statement.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="EncryptionUtilities.h">
+      <Filter>头文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Account.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="VigenereCipher.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FileHandler.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Statement.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

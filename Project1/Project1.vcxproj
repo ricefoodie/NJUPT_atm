@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="FileHandler.cpp" />
+    <ClCompile Include="EncryptionUtilities.h" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Account.cpp" />
     <ClCompile Include="Statement.cpp" />
