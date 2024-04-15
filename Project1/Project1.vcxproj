@@ -127,7 +127,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="EncryptionUtilities.cpp" />
     <ClCompile Include="FileHandler.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Account.cpp" />
@@ -135,7 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Account.h" />
-    <ClInclude Include="EncryptionUtilities.h" />
+    <ClInclude Include="VigenereCipher.h" />
     <ClInclude Include="FileHandler.h" />
     <ClInclude Include="Statement.h" />
   </ItemGroup>
