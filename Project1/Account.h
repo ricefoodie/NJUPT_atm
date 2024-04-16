@@ -3,7 +3,9 @@
 #pragma once
 
 #include <string>
-
+#include <iostream>
+#include <fstream>
+#include <sstream>
 // 用户账户信息类
 class Account {
 private:
@@ -35,5 +37,33 @@ public:
     // 设置账户余额
     void setBalance(double newBal) { balance = newBal; }
 
-    // 此处可以添加其他成员函数...
+    // 存款函数
+    bool deposit(double amount) {
+        if (amount > 0) {
+            updateBalance(balance + amount); // 调用 private 成员，更新余额
+            std::cout << "存款成功！当前余额：" << balance << std::endl;
+            return true;
+        }
+        else {
+            std::cout << "请输入有效的金额。\n";
+            return false;
+        }
+    }
+
+    // 取款函数
+    bool withdraw(double amount) {
+        if (amount > 0 && amount <= balance) {
+            updateBalance(balance - amount); // 调用 private 成员，更新余额
+            std::cout << "取款成功！当前余额：" << balance << std::endl;
+            return true;
+        }
+        else {
+            std::cout << (amount <= 0 ? "请输入有效的金额。\n" : "余额不足，取款失败。\n");
+            return false;
+        }
+    }
+private:
+    void updateBalance(double newBalance) {
+        balance = newBalance;
+    }
 };
