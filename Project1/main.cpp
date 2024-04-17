@@ -19,18 +19,34 @@ int generateKey(const string &id);
 int main() {
     Manage atm_manager;
   while(1){
-
+      bool flag2 = true;
      cout << "ATM系统\n";
      cout << "0. 退出\n";
      cout << "1. 管理员\n";
      cout << "2. 用户\n";
      cout << "请选择一个选项: ";
-    int option;
+     int option;
      cin >> option;
      switch (option) {
+         
      case 1:
-         atm_manager.createAccount();
-         break;
+         
+         cout << "1.用户信息" << endl;
+         cout << "2.创建用户" << endl;
+         cout << "0.返回" << endl;
+         while (flag2) {
+         int option3;
+         cin >> option3;
+         switch (option3) {
+         case 1:break;
+         case 2: {
+             atm_manager.createAccount();
+             break;
+         };
+         case 0:flag2 = false; break;
+         }
+     }break;
+         
      case 2:
      {
          int loginAttempts = 0;//登录错误计数器
