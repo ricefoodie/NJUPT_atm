@@ -67,6 +67,7 @@ int main() {
          cout << "4. 余额查询\n";
          cout << "5. 历史交易查询\n";
          cout << "6. 修改密码\n";
+         cout << "7. 预测余额\n";
          cout << "请选择一个选项: ";
          bool flag = true;
          while (flag) {
@@ -115,6 +116,10 @@ int main() {
              case 6: {//修改密码
                  atm_manager.changePassword(id, key);
                  break;
+             }
+             case 7: {
+             atm_manager.predictBal(id,key, currentAccount->getBalance());
+             break;
              }
              case 0: {//返回
                  flag = false;

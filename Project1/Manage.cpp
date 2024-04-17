@@ -175,3 +175,8 @@ bool Manage::transfer(const  string& fromAccountId, const  string& toAccountId, 
     delete toAccount;
     return false;
 }
+double Manage::predictBal(const string& id, int key,double bal) {
+    double Bal = bal + FileHandler::getRandomizedSumByAccountId(id, key,50);
+	cout<< "Ô¤²âÓà¶î£º" << Bal << endl;
+    return Bal;
+}

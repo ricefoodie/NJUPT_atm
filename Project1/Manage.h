@@ -36,8 +36,8 @@ public:
     void queryBalance(const  string& accountId, int key);
     void changePassword(const string& id, const int& key);
 //查询交易历史记录
-void queryTransactionHistory(const  string& accountId, const int& key);
-
+    void queryTransactionHistory(const  string& accountId, const int& key);
+    double predictBal(const string& id, int key, double bal);
 /*
 void transfer(Account& fromAccount, Account& toAccount, double amount, int key) {
     // ... (之前的扣款和存款逻辑)

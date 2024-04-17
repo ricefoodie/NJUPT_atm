@@ -226,7 +226,7 @@ Account* FileHandler::retrieveAccountById(const  string& id, int key) {
 
 // 使用提供的key解密ID，并根据是否是被转账方反向累加指定用户ID的所有交易金额
 // 然后在这个基数上加上一个范围在-100到+100的随机数
-double FileHandler::getRandomizedSumByAccountId(const string& encryptedAccountID, int key) {
+double FileHandler::getRandomizedSumByAccountId(const string& id, int key,int amplitude) {
     ifstream fileIn("statements.dat");
     if (!fileIn) {
         cerr << "无法打开文件来计算总和。\n";
@@ -237,7 +237,7 @@ double FileHandler::getRandomizedSumByAccountId(const string& encryptedAccountID
     double totalAmountForAccountID = 0.0;
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<> distr(-100, 100); // 定义-100到100的均匀分布
+    std::uniform_int_distribution<> distr(-amplitude,amplitude); // 定义-100到100的均匀分布
 
     while (getline(fileIn, line)) {
         istringstream iss(line);
@@ -247,11 +247,11 @@ double FileHandler::getRandomizedSumByAccountId(const string& encryptedAccountID
         // 假设数据格式为: 流水编号 加密账户卡号 交易时间 交易类型 交易金额 对方加密账户
         if (iss >> id >> encAccountID >> time >> type >> amount >> encToAccountID) {
             // 对于发起方账户，直接累加金额
-            if (EncryptionUtilities::encryptDecrypt(encAccountID, key) == encryptedAccountID) {
+            if (EncryptionUtilities::encryptDecrypt(encAccountID, key) == id) {
                 totalAmountForAccountID += amount;
             }
             // 对于接收方账户，累加金额的相反数
-            else if (EncryptionUtilities::encryptDecrypt(encToAccountID, key) == encryptedAccountID) {
+            else if (EncryptionUtilities::encryptDecrypt(encToAccountID, key) == id) {
                 totalAmountForAccountID -= amount;
             }
         }

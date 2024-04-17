@@ -44,6 +44,7 @@ public:
 
     // È¡¿îº¯Êý
     bool withdraw(double amount);
+    //double predictBal(string id);
 private:
     void updateBalance(double newBalance);
 

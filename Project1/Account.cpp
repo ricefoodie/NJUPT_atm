@@ -60,6 +60,7 @@ bool Account::withdraw(double amount) {
 void Account::updateBalance(double newBalance) {
         balance = newBalance;
     }
+
 int generateKey(const string& id) {
     int num = 0; // 初始化结果变量
     for (char c : id) { // 遍历字符串中的每个字符
