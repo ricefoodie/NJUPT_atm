@@ -36,7 +36,9 @@ int main() {
          int option3;
          cin >> option3;
          switch (option3) {
-         case 1:break;
+         case 1: { 
+             FileHandler::printAllAccountInfo();
+             break; }
          case 2: {
              atm_manager.createAccount();
              break;

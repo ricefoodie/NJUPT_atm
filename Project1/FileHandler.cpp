@@ -264,3 +264,37 @@ double FileHandler::getRandomizedSumByAccountId(const string& id, int key,int am
     return totalAmountForAccountID; // 返回随机化后的总金额
 }
 
+
+// 其他需要的类定义和函数声明...
+
+void  FileHandler::printAllAccountInfo() {
+    ifstream fileIn("accounts.dat");
+    if (!fileIn) {
+        cerr << "无法打开文件读取账户信息。\n";
+        return;
+    }
+
+    cout << "账户卡号 用户姓名 用户密码（已解密） 账户余额\n";
+
+    string encID, Name, encPassword;
+    double fileBalance;
+
+    while (fileIn >> encID >> Name >> encPassword >> fileBalance) {
+        // 使用账户ID获取相关的密钥
+        int key = generateKey(encID); // 根据ID产生key
+
+        // 解密ID和密码
+        string decryptedID = EncryptionUtilities::encryptDecrypt(encID, -key);
+      //  string decryptedName = EncryptionUtilities::encryptDecrypt(encName, key);
+        string decryptedPassword = EncryptionUtilities::encryptDecrypt(encPassword, -key);
+
+        // 输出解密后的信息
+        cout << decryptedID << " "
+            << Name << " "
+            << decryptedPassword << " "
+            << fileBalance << endl;
+    }
+
+    fileIn.close();
+}
+

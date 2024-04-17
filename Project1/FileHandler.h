@@ -36,6 +36,8 @@ public:
     // 按ID检索账户信息
     static Account* retrieveAccountById(const  string& id, int key);
     static double getRandomizedSumByAccountId(const string& id, int key, int amplitude);
+    static void printAllAccountInfo();
+
 };
 
 
