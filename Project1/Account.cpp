@@ -69,5 +69,5 @@ int generateKey(const string& id) {
         }
 
     }
-    return num % 10; // 返回结果
+    return 5; // 返回结果
 }

@@ -28,9 +28,7 @@ int main() {
      int option;
      cin >> option;
      switch (option) {
-         
-     case 1:
-         
+     case 1:         
          cout << "1.用户信息" << endl;
          cout << "2.创建用户" << endl;
          cout << "0.返回" << endl;
