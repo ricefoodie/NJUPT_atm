@@ -127,14 +127,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="EncryptionUtilities.cpp" />
     <ClCompile Include="FileHandler.cpp" />
     <ClCompile Include="EncryptionUtilities.h" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Account.cpp" />
+    <ClCompile Include="Manage.cpp" />
     <ClCompile Include="Statement.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Account.h" />
+    <ClInclude Include="Manage.h" />
     <ClInclude Include="VigenereCipher.h" />
     <ClInclude Include="FileHandler.h" />
     <ClInclude Include="Statement.h" />

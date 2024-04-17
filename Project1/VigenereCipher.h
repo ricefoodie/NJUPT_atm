@@ -6,8 +6,8 @@
 class VigenereCipher {
 public:
     // 使用Vigenère加密算法对字符串进行加密
-    std::string encrypt(const std::string& plaintext, const std::string& key) {
-        std::string encryptedText = plaintext;  // Initialize with the plaintext
+     string encrypt(const  string& plaintext, const  string& key) {
+         string encryptedText = plaintext;  // Initialize with the plaintext
 
         for (size_t i = 0, j = 0; i < plaintext.length(); ++i) {
             if (isalpha(plaintext[i])) {  // Encrypt alphabetic characters
@@ -31,8 +31,8 @@ public:
     }
 
     // 使用Vigenère算法的逆过程解密字符串
-    std::string decrypt(const std::string& encryptedText, const std::string& key) {
-        std::string decryptedText = encryptedText;  // Initialize with the encrypted text
+     string decrypt(const  string& encryptedText, const  string& key) {
+         string decryptedText = encryptedText;  // Initialize with the encrypted text
 
         for (size_t i = 0, j = 0; i < encryptedText.length(); ++i) {
             if (isalpha(encryptedText[i])) { // Decrypt alphabetic characters
@@ -62,19 +62,19 @@ int main() {
     VigenereCipher cipher;
 
     // 示例明文和密钥
-    std::string plaintext = "Hello123World";
-    std::string key = "VIGENERECIPHERKEY";
+     string plaintext = "Hello123World";
+     string key = "VIGENERECIPHERKEY";
 
-    std::cout << "Original text : " << plaintext << "\n";
-    std::cout << "Key           : " << key << "\n";
+     cout << "Original text : " << plaintext << "\n";
+     cout << "Key           : " << key << "\n";
 
     // 加密
-    std::string encryptedText = cipher.encrypt(plaintext, key);
-    std::cout << "Encrypted text: " << encryptedText << "\n";
+     string encryptedText = cipher.encrypt(plaintext, key);
+     cout << "Encrypted text: " << encryptedText << "\n";
 
     // 解密
-    std::string decryptedText = cipher.decrypt(encryptedText, key);
-    std::cout << "Decrypted text: " << decryptedText << "\n";
+     string decryptedText = cipher.decrypt(encryptedText, key);
+     cout << "Decrypted text: " << decryptedText << "\n";
 
     return 0;
 }*/

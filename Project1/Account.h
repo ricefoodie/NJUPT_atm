@@ -6,64 +6,46 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+using namespace std;
 // 用户账户信息类
 class Account {
-private:
-    std::string ID;          // 卡号
-    std::string name;        // 用户姓名
-    std::string password;    // 用户密码（已加密）
+public:
+    string ID;          // 卡号
+    string name;        // 用户姓名
+    string password;    // 用户密码（已加密）
     double balance;          // 账户余额
 
 public:
     // 构造函数
-    Account(const std::string& id, const std::string& name, const std::string& pw, double bal)
-        : ID(id), name(name), password(pw), balance(bal) {}
+    Account(const  string& id, const  string& Name, const  string& pw, double bal);
+    ~Account();//析构函数
 
     // 获取卡号
-    std::string getID() const { return ID; }
+    string getID() const;
     // 获取用户姓名
-    std::string getName() const { return name; }
+    string getName() const;
     // 获取密码
-    std::string getPassword() const { return password; }
+    string getPassword() const;
     // 获取账户余额
-    double getBalance() const { return balance; }
-
+    double getBalance() const;
+    //生成key
+   // static int generateKey(const  string& ID);
     // 设置卡号
-    void setID(const std::string& newID) { ID = newID; }
+    void setID(const  string& newID);
     // 设置用户姓名
-    void setName(const std::string& newName) { name = newName; }
+    void setName(const  string& newName);
     // 设置密码
-    void setPassword(const std::string& newPw) { password = newPw; }
+    void setPassword(const  string& newPw);
     // 设置账户余额
-    void setBalance(double newBal) { balance = newBal; }
+    void setBalance(double newBal);
 
     // 存款函数
-    bool deposit(double amount) {
-        if (amount > 0) {
-            updateBalance(balance + amount); // 调用 private 成员，更新余额
-            std::cout << "存款成功！当前余额：" << balance << std::endl;
-            return true;
-        }
-        else {
-            std::cout << "请输入有效的金额。\n";
-            return false;
-        }
-    }
+    bool deposit(double amount);
 
     // 取款函数
-    bool withdraw(double amount) {
-        if (amount > 0 && amount <= balance) {
-            updateBalance(balance - amount); // 调用 private 成员，更新余额
-            std::cout << "取款成功！当前余额：" << balance << std::endl;
-            return true;
-        }
-        else {
-            std::cout << (amount <= 0 ? "请输入有效的金额。\n" : "余额不足，取款失败。\n");
-            return false;
-        }
-    }
+    bool withdraw(double amount);
 private:
-    void updateBalance(double newBalance) {
-        balance = newBalance;
-    }
+    void updateBalance(double newBalance);
+
 };
+int generateKey(const  string& id);
