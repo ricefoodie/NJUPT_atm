@@ -8,6 +8,7 @@
 #include <fstream>
 #include <sstream>
 #include "Statement.h"
+#include "TimeDeposit.h"
 using namespace std;
 class FileHandler {
 
@@ -33,11 +34,22 @@ public:
     // 获取账户余额
     static double getAccountBalance(const  string& id, int key);
     
+    // 更新账户状态
+    static bool updateAccountState(const  string& id, int newState, int key);
+
+    //获取账户状态
+    static int getAccountState(const  string& id, int key);
+
     // 按ID检索账户信息
     static Account* retrieveAccountById(const  string& id, int key);
+
     static double getRandomizedSumByAccountId(const string& id, int key, int amplitude);
+
+    //打印所有账户信息
     static void printAllAccountInfo();
 
+    //写入定期存款账户
+    static bool writeTimeDepositAccountToFile(const TimeDepositAccount& account, int key);
 };
 
 

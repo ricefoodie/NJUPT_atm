@@ -1,3 +1,4 @@
+//Manage.h
 #pragma once
 #include <windows.h>
 #include "Account.h"
@@ -12,6 +13,7 @@
 #include <ctime>    
 #include <sstream>  
 #include <iomanip>
+#include <conio.h>
 using namespace std;
 class Manage
 {
@@ -24,6 +26,8 @@ public:
 // 创建账户的函数
     void createAccount();
 
+// 创建定期存款账户的函数
+    void createTimeDepositAccount();
 
 // 验证登录的函数
     bool verifyLogin(string id);
@@ -38,32 +42,7 @@ public:
 //查询交易历史记录
     void queryTransactionHistory(const  string& accountId, const int& key);
     double predictBal(const string& id, int key, double bal);
-/*
-void transfer(Account& fromAccount, Account& toAccount, double amount, int key) {
-    // ... (之前的扣款和存款逻辑)
 
-    // 转账成功后记录交易流水
-    if (fromAccountBalanceUpdated && toAccountBalanceUpdated) {
-        // 获取系统当前时间作为交易流水编号
-         string transactionId = getCurrentTime(); // 假设 getCurrentTime 已经实现
-
-        // 创建转出方的交易流水记录对象
-        Statement outStatement(
-            transactionId, // 唯一的交易编号
-            fromAccount.getID(),
-            getCurrentTime(), // 当前时间
-            TransactionType::TRANSFER, // 交易类型
-            -amount, // 转账金额（负值代表支出）
-            toAccount.getID() // 收款方账户ID
-        );
-
-        // 将交易流水记录写入文件
-        FileHandler::writeStatementToFile(outStatement);
-
-         cout << "转账交易已记录。\n";
-    }
-}
-*/
 
 bool transfer(const  string& fromAccountId, const  string& toAccountId, double amount);
 

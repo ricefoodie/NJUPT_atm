@@ -1,3 +1,4 @@
+//FileHander.cpp
 #include "FileHandler.h"
 #include <random>
 //将账户写入文件
@@ -10,7 +11,8 @@ bool FileHandler::writeAccountToFile(const Account& account, int key) {
     fileOut << EncryptionUtilities::encryptDecrypt(account.getID(), key) << " "
         << account.getName() << " "
         << EncryptionUtilities::encryptDecrypt(account.getPassword(), key) << " "
-        << account.getBalance() << endl;
+        << account.getBalance() <<" " 
+        <<account.getState() << endl;
     fileOut.close();
     return true;
 }
@@ -28,7 +30,8 @@ bool FileHandler::verifyAccountPassword(const  string& id, const  string& passwo
         istringstream iss(line);
         string fileID, filePassword, fileName;
         double fileBalance;
-        if (iss >> fileID >> fileName >> filePassword >> fileBalance) {
+        int fileState;
+        if (iss >> fileID >> fileName >> filePassword >> fileBalance>>fileState) {
             if (fileID == EncryptionUtilities::encryptDecrypt(id, key) &&
                 EncryptionUtilities::encryptDecrypt(filePassword, -key) == password) {
                 fileIn.close();
@@ -50,8 +53,9 @@ bool FileHandler::updatePassword(const  string& id, const  string& oldPassword, 
     if (file.is_open() && tempFile.is_open()) {
         string fileID, fileName, filePassword;
         double fileBalance;
+        int fileState;
 
-        while (file >> fileID >> fileName >> filePassword >> fileBalance) {
+        while (file >> fileID >> fileName >> filePassword >> fileBalance >> fileState) {
             if (fileID == EncryptionUtilities::encryptDecrypt(id, key)) {
                 // 解密并比较密码
                 string decryptedPassword = EncryptionUtilities::encryptDecrypt(filePassword, -key);
@@ -67,7 +71,7 @@ bool FileHandler::updatePassword(const  string& id, const  string& oldPassword, 
                 }
             }
             // 将账户信息写入临时文件中
-            tempFile << fileID << " " << fileName << " " << filePassword << " " << fileBalance << "\n";
+            tempFile << fileID << " " << fileName << " " << filePassword << " " << fileBalance << " "<<fileState<<"\n";
         }
 
         file.close();
@@ -148,7 +152,8 @@ bool FileHandler::updateAccountBalance(const  string& id, double newBalance, int
     if (fileIn && fileOut) {
         string fileID, fileName, filePassword;
         double fileBalance;
-        while (fileIn >> fileID >> fileName >> filePassword >> fileBalance) {
+        int fileState;
+        while (fileIn >> fileID >> fileName >> filePassword >> fileBalance>>fileState) {
             if (fileID == EncryptionUtilities::encryptDecrypt(id, key)) {
                 fileBalance = newBalance;  // 更新余额
                 isUpdated = true;
@@ -156,7 +161,8 @@ bool FileHandler::updateAccountBalance(const  string& id, double newBalance, int
             fileOut << fileID
                 << " " << fileName << " "
                 << filePassword << " "
-                << fileBalance << endl;
+                << fileBalance << " "
+                << fileState <<endl;
         }
         fileIn.close();
         fileOut.close();
@@ -187,7 +193,8 @@ double FileHandler::getAccountBalance(const  string& id, int key) {
 
     string fileID, fileName, filePassword;
     double fileBalance;
-    while (fileIn >> fileID >> fileName >> filePassword >> fileBalance) {
+    int fileState;
+    while (fileIn >> fileID >> fileName >> filePassword >> fileBalance >> fileState) {
         if (fileID == EncryptionUtilities::encryptDecrypt(id, key)) {
             fileIn.close();
             return fileBalance; // 返回解密后的账户余额
@@ -197,6 +204,69 @@ double FileHandler::getAccountBalance(const  string& id, int key) {
     cerr << "没找到对应的账户余额。\n";
     return -1; // 使用错误值表示账户不存在
 }
+
+// 获取账户状态
+int FileHandler::getAccountState(const  string& id, int key) {
+    ifstream fileIn("accounts.dat");
+    if (!fileIn) {
+        cerr << "无法打开文件来获取状态。\n";
+        return -1; // 使用错误值表示无法获取状态
+    }
+
+    string fileID, fileName, filePassword;
+    double fileBalance;
+    int fileState;
+    while (fileIn >> fileID >> fileName >> filePassword >> fileBalance >> fileState) {
+        if (fileID == EncryptionUtilities::encryptDecrypt(id, key)) {
+            fileIn.close();
+            return fileState; // 返回解密后的账户余额
+        }
+    }
+    fileIn.close();
+    cerr << "没找到对应的账户余额。\n";
+    return -1; // 使用错误值表示账户不存在
+}
+
+//更新状态
+bool FileHandler::updateAccountState(const  string& id, int newState, int key) {
+    ifstream fileIn("accounts.dat");
+    ofstream fileOut("accounts_temp.dat");
+    bool isUpdated = false;
+
+    if (fileIn && fileOut) {
+        string fileID, fileName, filePassword;
+        double fileBalance;
+        int fileState;
+        while (fileIn >> fileID >> fileName >> filePassword >> fileBalance >> fileState) {
+            if (fileID == EncryptionUtilities::encryptDecrypt(id, key)) {
+                fileState = newState;  // 更新状态
+                isUpdated = true;
+            }
+            fileOut << fileID
+                << " " << fileName << " "
+                << filePassword << " "
+                << fileBalance << " "
+                << fileState << endl;
+        }
+        fileIn.close();
+        fileOut.close();
+
+        // 删除旧账户文件并将临时文件重命名为新账户文件
+        remove("accounts.dat");
+        rename("accounts_temp.dat", "accounts.dat");
+    }
+    else {
+        cerr << "无法打开文件进行更新。\n";
+        if (fileIn) fileIn.close();
+        if (fileOut) {
+            fileOut.close();
+            remove("accounts_temp.dat");  // 删除临时文件
+        }
+        return false;
+    }
+    return isUpdated;
+}
+
 
 // 按ID检索账户信息
 Account* FileHandler::retrieveAccountById(const  string& id, int key) {
@@ -208,12 +278,13 @@ Account* FileHandler::retrieveAccountById(const  string& id, int key) {
 
     string fileID, fileName, filePassword;
     double fileBalance;
-    while (fileIn >> fileID >> fileName >> filePassword >> fileBalance) {
+    int fileState;
+    while (fileIn >> fileID >> fileName >> filePassword >> fileBalance>> fileState) {
         // 解密并检查ID是否匹配
         if (EncryptionUtilities::encryptDecrypt(fileID, -key) == id) {
             fileIn.close();
             // 返回动态分配的对应的账户对象
-            return new Account(id, fileName, filePassword, fileBalance);
+            return new Account(id, fileName, filePassword, fileBalance,fileState);
         }
     }
 
@@ -274,12 +345,13 @@ void  FileHandler::printAllAccountInfo() {
         return;
     }
 
-    cout << "账户卡号 用户姓名 用户密码（已解密） 账户余额\n";
+    cout << "账户卡号 用户姓名 用户密码（已解密） 账户余额 账户状态\n";
 
     string encID, Name, encPassword;
     double fileBalance;
+    int fileState;
 
-    while (fileIn >> encID >> Name >> encPassword >> fileBalance) {
+    while (fileIn >> encID >> Name >> encPassword >> fileBalance >> fileState) {
         // 使用账户ID获取相关的密钥
         int key = generateKey(encID); // 根据ID产生key
 
@@ -292,9 +364,28 @@ void  FileHandler::printAllAccountInfo() {
         cout << decryptedID << " "
             << Name << " "
             << decryptedPassword << " "
-            << fileBalance << endl;
+            << fileBalance << " "
+            << fileState <<endl;
     }
 
     fileIn.close();
 }
 
+//写入定期存款账户
+bool FileHandler::writeTimeDepositAccountToFile(const TimeDepositAccount& account, int key) {
+    // 打开定期存款文件
+    ofstream outFile("time_deposits.dat", ios::app | ios::binary);
+    if (!outFile) {
+        cerr << "文件打开失败" << endl;
+        return false;
+    }
+    // 写入账户信息
+    outFile << EncryptionUtilities::encryptDecrypt(account.getID(), generateKey(account.getID())) << "\t"
+        << account.getName() << "\t"
+        << EncryptionUtilities::encryptDecrypt(account.getPassword(), generateKey(account.getID())) << "\t"
+        << account.getBalance() << "\t"
+        << account.getInterestRate() << "\t"
+        << account.getDepositTerm() << endl;
+    outFile.close();
+    return true;
+}

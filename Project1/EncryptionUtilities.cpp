@@ -1,7 +1,7 @@
 #include "EncryptionUtilities.h"
 
     // 简单的数字对称加密函数，仅适用于纯数字字符串
-    string EncryptionUtilities::encryptDecrypt(const  string& input, int key) {
+     string EncryptionUtilities::encryptDecrypt(const  string& input, int key) {
         string result = input;
 
         for (char& c : result) {
