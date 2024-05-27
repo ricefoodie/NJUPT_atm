@@ -134,7 +134,7 @@ int main() {
          while (flag) {
              cout << "请选择一个选项: ";
              int option2;
-             char yn;
+             char yn
              cin >> option2;
              switch (option2) {
              case 1: {   // 存款
