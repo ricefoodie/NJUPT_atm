@@ -1,6 +1,7 @@
 //FileHander.cpp
 #include "FileHandler.h"
 #include <random>
+#include <iomanip>
 //将账户写入文件
 bool FileHandler::writeAccountToFile(const Account& account, int key) {
     ofstream fileOut("accounts.dat", ios::app); // 使用追加模式
@@ -104,11 +105,11 @@ bool FileHandler::writeStatementToFile(const Statement& statement, const int& ke
     }
 
     // 存入交易信息，格式化为流水编号 账户卡号 交易时间 交易类型 交易金额 对方账户
-    fileOut << statement.getID() << "\t"
+    fileOut <<left<<setw(20)<< statement.getID() << setw(13)
         << EncryptionUtilities::encryptDecrypt(statement.getAccountID(), generateKey(statement.getAccountID())) << " "
-        << statement.getTime() << " "
-        << statement.getType() << " "
-        << statement.getAmount() << " "
+        << statement.getTime() << setw(13)
+        << statement.getType() << setw(13)
+        << statement.getAmount() << setw(13)
         << EncryptionUtilities::encryptDecrypt(statement.getToAccountID(),generateKey(statement.getToAccountID())) << endl;
     fileOut.close();
     return true;
@@ -123,9 +124,8 @@ void FileHandler::readStatements(const  string& accountID,const int &key) {
     }
 
     string line;
-    cout << "流水编号 账户卡号 交易时间 交易类型 交易金额 对方账户\n";
+    cout <<left<< setw(20) << "流水编号"<< setw(20) << "账户卡号" << setw(13) << "交易时间" << setw(13) << "交易类型" << setw(13) << "交易金额" << setw(13) << "对方账户" << endl;
     while (getline(fileIn, line)) {
-
         istringstream iss(line);
         string id, accID, time, toAccID;
         int type;
@@ -133,10 +133,10 @@ void FileHandler::readStatements(const  string& accountID,const int &key) {
         if (iss >> id >> accID >> time >> type >> amount >> toAccID) {
             // cout << 1 <<  endl;
             if (EncryptionUtilities::encryptDecrypt(accID,-key) == accountID || EncryptionUtilities::encryptDecrypt(toAccID,-key)==accountID) {
-                cout << id << " " << EncryptionUtilities::encryptDecrypt(accID, -key) << " " << time << " " << type << " " << amount << " " << EncryptionUtilities::encryptDecrypt(toAccID, -key) << endl;
+                cout <<left<< setw(20)<< id << setw(13) << EncryptionUtilities::encryptDecrypt(accID, -key) << setw(13) << time << setw(13) << type << setw(13) << amount << setw(13) << EncryptionUtilities::encryptDecrypt(toAccID, -key) << endl;
             }
             else {
-                // cout << accID <<  endl;
+                cout << "something wrong"<<endl; // cout << accID <<  endl;
             }
         }
     }
@@ -345,7 +345,7 @@ void  FileHandler::printAllAccountInfo() {
         return;
     }
 
-    cout << "账户卡号 用户姓名 用户密码（已解密） 账户余额 账户状态\n";
+    cout <<left << setw(15) << "账户卡号"<< setw(15) << "用户姓名" << setw(10) << "用户密码" << setw(10) << "账户余额" << setw(10) << " 账户状态" << endl;
 
     string encID, Name, encPassword;
     double fileBalance;
@@ -361,10 +361,10 @@ void  FileHandler::printAllAccountInfo() {
         string decryptedPassword = EncryptionUtilities::encryptDecrypt(encPassword, -key);
 
         // 输出解密后的信息
-        cout << decryptedID << " "
-            << Name << " "
-            << decryptedPassword << " "
-            << fileBalance << " "
+        cout<<left<< setw(15)<<decryptedID << setw(15)
+            << Name << setw(10)
+            << decryptedPassword << setw(10)
+            << fileBalance << setw(10)
             << fileState <<endl;
     }
 

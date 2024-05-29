@@ -19,6 +19,8 @@ using namespace std;
 int generateKey(const string &id);
 int main() {
     Manage atm_manager;
+    StartMenu:
+        cout << endl;
   while(1){
       bool flag2 = true;
      cout << "ATM系统\n";
@@ -26,18 +28,27 @@ int main() {
      cout << "1. 管理员\n";
      cout << "2. 用户\n";
      cout << "请选择一个选项: ";
-     int option;
-     cin >> option;
+     int option=-1;
+     while (option < 0 || option>2) {
+         cin >> option;
+         if (option < 0 || option>2) {
+             cout << "请重新输入" << endl;
+         }
+     }
      int managepassword = 123456, inputpassword;
      switch (option) {
      case 1:
          cout << "请输入管理员密码：" ;
          cin >> inputpassword;
-         if (inputpassword != managepassword) {
-             cout << "错误！\n";
-             break;
+         while (inputpassword != managepassword) {
+             cout << "错误！请重试,或输入0回到主页面"<<endl;
+             cin >> inputpassword;
+             if (inputpassword == 0){
+                 goto StartMenu;
+             }
+             
          }
-         cout << "管理员登录成功\n1.用户信息" << endl;
+         cout <<endl<< "管理员登录成功\n1.用户信息" << endl;
          cout << "2.创建用户" << endl;
          cout << "3.创建定期存款账户" << endl;
          cout << "0.返回" << endl;
@@ -134,7 +145,7 @@ int main() {
          while (flag) {
              cout << "请选择一个选项: ";
              int option2;
-             char yn
+             char yn;
              cin >> option2;
              switch (option2) {
              case 1: {   // 存款
