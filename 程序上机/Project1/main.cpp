@@ -77,6 +77,7 @@ int main() {
                  FileHandler::updateAccountState(id, 1, key);
                  cout << "已解锁" << endl;
                  break;
+             case 0:break;
              }
              break; 
          }
@@ -100,8 +101,11 @@ int main() {
          Account* currentAccount;
          
          do {
-             cout << "请输入正确的卡号: ";
+             cout << "请输入正确的卡号,或输入0回到主页面:";
              cin >> id;
+             if (id == "0") {
+                 goto StartMenu;
+             }
              key = generateKey(id);            
              currentAccount = FileHandler::retrieveAccountById(id, key);
 

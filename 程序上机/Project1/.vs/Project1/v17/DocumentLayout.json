@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\\u996D\u7684lenovo\\Desktop\\\u7A0B\u5E8F\u4E0A\u673A\\\u7A0B\u5E8F\u4E0A\u673A\\Project1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{617035E5-3A2B-4632-BD8B-A47EE40CF022}|Project1.vcxproj|C:\\Users\\\u996D\u7684lenovo\\Desktop\\\u7A0B\u5E8F\u4E0A\u673A\\\u7A0B\u5E8F\u4E0A\u673A\\Project1\\Account.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{617035E5-3A2B-4632-BD8B-A47EE40CF022}|Project1.vcxproj|solutionrelative:Account.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{617035E5-3A2B-4632-BD8B-A47EE40CF022}|Project1.vcxproj|C:\\Users\\\u996D\u7684lenovo\\Desktop\\\u7A0B\u5E8F\u4E0A\u673A\\\u7A0B\u5E8F\u4E0A\u673A\\Project1\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{617035E5-3A2B-4632-BD8B-A47EE40CF022}|Project1.vcxproj|solutionrelative:main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{617035E5-3A2B-4632-BD8B-A47EE40CF022}|Project1.vcxproj|C:\\Users\\\u996D\u7684lenovo\\Desktop\\\u7A0B\u5E8F\u4E0A\u673A\\\u7A0B\u5E8F\u4E0A\u673A\\Project1\\EncryptionUtilities.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -19,8 +19,12 @@
       "RelativeMoniker": "D:0:0:{617035E5-3A2B-4632-BD8B-A47EE40CF022}|Project1.vcxproj|solutionrelative:Manage.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{617035E5-3A2B-4632-BD8B-A47EE40CF022}|Project1.vcxproj|C:\\Users\\\u996D\u7684lenovo\\Desktop\\\u7A0B\u5E8F\u4E0A\u673A\\\u7A0B\u5E8F\u4E0A\u673A\\Project1\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{617035E5-3A2B-4632-BD8B-A47EE40CF022}|Project1.vcxproj|solutionrelative:main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{617035E5-3A2B-4632-BD8B-A47EE40CF022}|Project1.vcxproj|C:\\Users\\\u996D\u7684lenovo\\Desktop\\\u7A0B\u5E8F\u4E0A\u673A\\\u7A0B\u5E8F\u4E0A\u673A\\Project1\\FileHandler.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{617035E5-3A2B-4632-BD8B-A47EE40CF022}|Project1.vcxproj|solutionrelative:FileHandler.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{617035E5-3A2B-4632-BD8B-A47EE40CF022}|Project1.vcxproj|C:\\Users\\\u996D\u7684lenovo\\Desktop\\\u7A0B\u5E8F\u4E0A\u673A\\\u7A0B\u5E8F\u4E0A\u673A\\Project1\\Account.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{617035E5-3A2B-4632-BD8B-A47EE40CF022}|Project1.vcxproj|solutionrelative:Account.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,8 +34,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 5,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "FileHandler.cpp",
+              "DocumentMoniker": "C:\\Users\\\u996D\u7684lenovo\\Desktop\\\u7A0B\u5E8F\u4E0A\u673A\\\u7A0B\u5E8F\u4E0A\u673A\\Project1\\FileHandler.cpp",
+              "RelativeDocumentMoniker": "FileHandler.cpp",
+              "ToolTip": "C:\\Users\\\u996D\u7684lenovo\\Desktop\\\u7A0B\u5E8F\u4E0A\u673A\\\u7A0B\u5E8F\u4E0A\u673A\\Project1\\FileHandler.cpp",
+              "RelativeToolTip": "FileHandler.cpp",
+              "ViewState": "AQIAADABAAAAAAAAAAArwEEBAAAWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-05-29T03:12:47.864Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 1,
@@ -40,20 +57,20 @@
               "RelativeDocumentMoniker": "EncryptionUtilities.h",
               "ToolTip": "C:\\Users\\\u996D\u7684lenovo\\Desktop\\\u7A0B\u5E8F\u4E0A\u673A\\\u7A0B\u5E8F\u4E0A\u673A\\Project1\\EncryptionUtilities.h",
               "RelativeToolTip": "EncryptionUtilities.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAsAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAPAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2024-05-29T00:14:53.244Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "Account.h",
               "DocumentMoniker": "C:\\Users\\\u996D\u7684lenovo\\Desktop\\\u7A0B\u5E8F\u4E0A\u673A\\\u7A0B\u5E8F\u4E0A\u673A\\Project1\\Account.h",
               "RelativeDocumentMoniker": "Account.h",
               "ToolTip": "C:\\Users\\\u996D\u7684lenovo\\Desktop\\\u7A0B\u5E8F\u4E0A\u673A\\\u7A0B\u5E8F\u4E0A\u673A\\Project1\\Account.h",
               "RelativeToolTip": "Account.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAANAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAdAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2024-05-29T00:14:46.802Z",
               "EditorCaption": ""
@@ -86,13 +103,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "main.cpp",
               "DocumentMoniker": "C:\\Users\\\u996D\u7684lenovo\\Desktop\\\u7A0B\u5E8F\u4E0A\u673A\\\u7A0B\u5E8F\u4E0A\u673A\\Project1\\main.cpp",
               "RelativeDocumentMoniker": "main.cpp",
               "ToolTip": "C:\\Users\\\u996D\u7684lenovo\\Desktop\\\u7A0B\u5E8F\u4E0A\u673A\\\u7A0B\u5E8F\u4E0A\u673A\\Project1\\main.cpp",
               "RelativeToolTip": "main.cpp",
-              "ViewState": "AQIAACQAAAAAAAAAAIAwwC8AAAAOAAAA",
+              "ViewState": "AQIAAEIAAAAAAAAAAAAAAFgAAAA0AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-05-28T14:33:15.261Z",
               "EditorCaption": ""

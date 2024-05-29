@@ -124,7 +124,8 @@ void FileHandler::readStatements(const  string& accountID,const int &key) {
     }
 
     string line;
-    cout <<left<< setw(20) << "流水编号"<< setw(20) << "账户卡号" << setw(13) << "交易时间" << setw(13) << "交易类型" << setw(13) << "交易金额" << setw(13) << "对方账户" << endl;
+    cout <<left<< setw(20) << "流水编号"<< setw(20) << "账户卡号" << setw(20) << "交易时间" << setw(13) << "交易类型" << setw(13) << "交易金额" << setw(13) << "对方账户" << endl;
+    int flag = -1;
     while (getline(fileIn, line)) {
         istringstream iss(line);
         string id, accID, time, toAccID;
@@ -133,13 +134,16 @@ void FileHandler::readStatements(const  string& accountID,const int &key) {
         //         流水编号 账户卡号 交易时间 交易类型 交易金额 对方账户
         if (iss >> id >> accID >> time >> type >> amount >> toAccID) {
             // cout << 1 <<  endl;
+            
             if (EncryptionUtilities::encryptDecrypt(accID,-key) == accountID || EncryptionUtilities::encryptDecrypt(toAccID,-key)==accountID) {
-                cout <<left<< setw(20)<< id << setw(13) << EncryptionUtilities::encryptDecrypt(accID, -key) << setw(13) << time << setw(13) << type << setw(13) << amount << setw(13) << EncryptionUtilities::encryptDecrypt(toAccID, -key) << endl;
+                cout <<left<< setw(20)<< id << setw(20) << EncryptionUtilities::encryptDecrypt(accID, -key) << setw(20) << time << setw(13) << type << setw(13) << amount << setw(13) << EncryptionUtilities::encryptDecrypt(toAccID, -key) << endl;
+                flag = 1;
             }
-            else {
-                cout << accID <<"匹配错误"<<endl; 
-            }
+                                 
         }
+    }
+    if (flag != 1) {
+        cout << "匹配错误" << endl;
     }
     fileIn.close();
 }
