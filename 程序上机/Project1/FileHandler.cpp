@@ -130,13 +130,14 @@ void FileHandler::readStatements(const  string& accountID,const int &key) {
         string id, accID, time, toAccID;
         int type;
         double amount;
+        //         流水编号 账户卡号 交易时间 交易类型 交易金额 对方账户
         if (iss >> id >> accID >> time >> type >> amount >> toAccID) {
             // cout << 1 <<  endl;
             if (EncryptionUtilities::encryptDecrypt(accID,-key) == accountID || EncryptionUtilities::encryptDecrypt(toAccID,-key)==accountID) {
                 cout <<left<< setw(20)<< id << setw(13) << EncryptionUtilities::encryptDecrypt(accID, -key) << setw(13) << time << setw(13) << type << setw(13) << amount << setw(13) << EncryptionUtilities::encryptDecrypt(toAccID, -key) << endl;
             }
             else {
-                cout << "something wrong"<<endl; // cout << accID <<  endl;
+                cout << accID <<"匹配错误"<<endl; 
             }
         }
     }
@@ -219,7 +220,7 @@ int FileHandler::getAccountState(const  string& id, int key) {
     while (fileIn >> fileID >> fileName >> filePassword >> fileBalance >> fileState) {
         if (fileID == EncryptionUtilities::encryptDecrypt(id, key)) {
             fileIn.close();
-            return fileState; // 返回解密后的账户余额
+            return fileState; // 返回解密后的账户状态
         }
     }
     fileIn.close();
@@ -297,7 +298,7 @@ Account* FileHandler::retrieveAccountById(const  string& id, int key) {
 
 // 使用提供的key解密ID，并根据是否是被转账方反向累加指定用户ID的所有交易金额
 // 然后在这个基数上加上一个范围在-100到+100的随机数
-double FileHandler::getRandomizedSumByAccountId(const string& id, int key,int amplitude) {
+double FileHandler::getRandomizedSumByAccountId(const string& id, int key,int amplitude) {//振幅
     ifstream fileIn("statements.dat");
     if (!fileIn) {
         cerr << "无法打开文件来计算总和。\n";
