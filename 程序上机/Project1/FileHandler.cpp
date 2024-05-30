@@ -67,7 +67,7 @@ bool FileHandler::updatePassword(const  string& id, const  string& oldPassword, 
                 }
                 else {
                     // 旧密码不正确，不更新信息，返回失败
-                    cout << "旧密码不正确，无法更新。\n";
+                    cerr << "旧密码不正确，无法更新。\n";
                     return false;
                 }
             }
@@ -381,7 +381,7 @@ void  FileHandler::printAllAccountInfo() {
     // 打开定期存款文件
     ofstream outFile("time_deposits.dat", ios::app | ios::binary);
     if (!outFile) {
-        cerr << "文件打开失败" << endl;
+        cout << "文件打开失败" << endl;
         return false;
     }
     // 写入账户信息
