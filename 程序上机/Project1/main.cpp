@@ -59,7 +59,7 @@ int main() {
          case 1: { 
              FileHandler::printAllAccountInfo();
              cout << "\n\n1.检索特定用户" << endl;
-             cout << "2.更改用户状态" << endl;
+             cout << "2.改变用户状态(冻结或解冻)" << endl;
              cout << "0.返回" << endl;
              int option4;
              int key = 5;
@@ -74,7 +74,12 @@ int main() {
              case 2:
                  cout << "\n用户ID" << endl;
                  cin >> id;
-                 FileHandler::updateAccountState(id, 1, key);
+                 if(FileHandler::getAccountState(id,key)==0){
+                     FileHandler::updateAccountState(id, 1, key);//解封
+                 }
+                 else {
+                     FileHandler::updateAccountState(id, 0, key);//封禁
+                 }
                  cout << "已解锁" << endl;
                  break;
              case 0:break ;
@@ -185,7 +190,7 @@ int main() {
                  // 执行转账
                  bool success = atm_manager.transfer(id, toAccountId, amount);
                  if (success) {
-                     cout << "转账成功。\n";
+                     cout << "转账成功!\n";
                      cout << "是否打印回单？y/n" << endl;
                      cin >> yn;
                      if (yn == 'y')

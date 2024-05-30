@@ -224,7 +224,7 @@ int FileHandler::getAccountState(const  string& id, int key) {
     while (fileIn >> fileID >> fileName >> filePassword >> fileBalance >> fileState) {
         if (fileID == EncryptionUtilities::encryptDecrypt(id, key)) {
             fileIn.close();
-            return fileState; // 返回解密后的账户状态
+            return fileState; // 返回账户状态
         }
     }
     fileIn.close();
