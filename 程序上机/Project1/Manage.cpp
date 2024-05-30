@@ -152,7 +152,7 @@ void Manage::changePassword(const string &id,const int & key) {
         }
     }
     char ch1;
-    cout << "newpassword:";
+    cout << endl<<"newpassword:";
     while ((ch1 = _getch()) != '\r') { // 当按下回车（Enter）键时停止
         if (ch1 == '\b' && !newPassword.empty()) { // 如果按下退格（Backspace）键并且密码不为空
             newPassword.pop_back(); // 删除最后一个字符
@@ -166,7 +166,7 @@ void Manage::changePassword(const string &id,const int & key) {
     bool passwordChanged = FileHandler::updatePassword(id, oldPassword, newPassword, key);
     if (passwordChanged) {
         cout << "密码更新成功！" << endl;
-        FileHandler::updateAccountState(id, 0, key);
+        FileHandler::updateAccountState(id, 1, key);
     }
     else {
         cout << "密码更新失败。" << endl;
@@ -225,7 +225,7 @@ double Manage::predictBal(const string& id, int key,double bal) {
 }
 
 //创建定期存款账户
-void Manage::createTimeDepositAccount() {
+/*void Manage::createTimeDepositAccount() {
     string id, name, password; // ...
     double balance, interestRate;
     int depositTerm, key, state = 1;
@@ -263,4 +263,4 @@ void Manage::createTimeDepositAccount() {
     else {
         cout << "定期存款账户创建失败，请稍后再试。\n";
     }
-}
+}*/

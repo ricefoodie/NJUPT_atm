@@ -67,7 +67,7 @@ bool FileHandler::updatePassword(const  string& id, const  string& oldPassword, 
                 }
                 else {
                     // 旧密码不正确，不更新信息，返回失败
-                    cerr << "旧密码不正确，无法更新。\n";
+                    cout << "旧密码不正确，无法更新。\n";
                     return false;
                 }
             }
@@ -377,7 +377,7 @@ void  FileHandler::printAllAccountInfo() {
 }
 
 //写入定期存款账户
-bool FileHandler::writeTimeDepositAccountToFile(const TimeDepositAccount& account, int key) {
+/*bool FileHandler::writeTimeDepositAccountToFile(const TimeDepositAccount& account, int key) {
     // 打开定期存款文件
     ofstream outFile("time_deposits.dat", ios::app | ios::binary);
     if (!outFile) {
@@ -393,4 +393,4 @@ bool FileHandler::writeTimeDepositAccountToFile(const TimeDepositAccount& accoun
         << account.getDepositTerm() << endl;
     outFile.close();
     return true;
-}
+}*/

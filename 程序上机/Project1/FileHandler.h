@@ -49,7 +49,7 @@ public:
     static void printAllAccountInfo();
 
     //写入定期存款账户
-    static bool writeTimeDepositAccountToFile(const TimeDepositAccount& account, int key);
+    /*static bool writeTimeDepositAccountToFile(const TimeDepositAccount& account, int key);*/
 };
 
 

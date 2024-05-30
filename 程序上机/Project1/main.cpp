@@ -48,11 +48,11 @@ int main() {
              }
              
          }
-         cout <<endl<< "管理员登录成功\n1.用户信息" << endl;
-         cout << "2.创建用户" << endl;
-         cout << "3.创建定期存款账户" << endl;
-         cout << "0.返回" << endl;
+         
          while (flag2) {
+         cout << endl << "管理员登录成功\n1.用户信息" << endl;
+         cout << "2.创建用户" << endl;
+         cout << "0.返回" << endl;
          int option3;
          cin >> option3;
          switch (option3) {
@@ -77,7 +77,7 @@ int main() {
                  FileHandler::updateAccountState(id, 1, key);
                  cout << "已解锁" << endl;
                  break;
-             case 0:break;
+             case 0:break ;
              }
              break; 
          }
@@ -85,10 +85,10 @@ int main() {
              atm_manager.createAccount();
              break;
          }
-         case 3: {
+         /*case 3: {
              atm_manager.createTimeDepositAccount();
              break;
-         }
+         }*/
          case 0:flag2 = false; break;
          }
      }break;
@@ -144,7 +144,7 @@ int main() {
          cout << "6. 修改密码\n";
          cout << "7. 预测余额\n";
       //   cout << "8. 创建定期存款账户\n";
-         cout << "8. 货币兑换" << endl;
+      //   cout << "8. 货币兑换" << endl;
          bool flag = true;
          while (flag) {
              cout << "请选择一个选项: ";
@@ -208,35 +208,35 @@ int main() {
                  break;
              }
              case 7: {
-             atm_manager.predictBal(id,key, currentAccount->getBalance());
-             break;
+                 atm_manager.predictBal(id, key, currentAccount->getBalance());
+                 break;
              }
-             case 8: {
-             cout<<"请输入需要兑换的货币种类：（直接存到账户）"<<endl;
-             cout << "1.美元->人民币，2.英镑->人民币，3.欧元->人民币" << endl;
-             int cointype;
-             cin >> cointype;
-             double depositAmount;
-             cout << "请输入兑换金额:";
-             cin >> depositAmount;
-             
-             switch (cointype) {
-             case 1:depositAmount *= 7.24;    break;
-             case 2:depositAmount *= 9.03;    break;
-             case 3:depositAmount *= 7.73;    break;
-             default:cout << "输入有误，请重新输入。" << endl; break;
-             }
-             atm_manager.deposit(*currentAccount, depositAmount, key);  // 使用存款函数
-             cout << "是否打印回单？y/n" << endl;
-             cin >> yn;
-             if (yn == 'y')
-                 cout << "打印成功！";
-             break;
-             }
+                   /* case 8: {
+                    cout<<"请输入需要兑换的货币种类：（直接存到账户）"<<endl;
+                    cout << "1.美元->人民币，2.英镑->人民币，3.欧元->人民币" << endl;
+                    int cointype;
+                    cin >> cointype;
+                    double depositAmount;
+                    cout << "请输入兑换金额:";
+                    cin >> depositAmount;
+
+                    switch (cointype) {
+                    case 1:depositAmount *= 7.24;    break;
+                    case 2:depositAmount *= 9.03;    break;
+                    case 3:depositAmount *= 7.73;    break;
+                    default:cout << "输入有误，请重新输入。" << endl; break;
+                    }
+                    atm_manager.deposit(*currentAccount, depositAmount, key);  // 使用存款函数
+                    cout << "是否打印回单？y/n" << endl;
+                    cin >> yn;
+                    if (yn == 'y')
+                        cout << "打印成功！";
+                    break;
+                    }*/
              case 0: {//返回
                  flag = false;
-                 cout<< "返回成功,请重新输入选项" << endl;
-                 
+                 cout << "返回成功,请重新输入选项" << endl;
+
                  break;
              }
              default: {
@@ -252,7 +252,7 @@ int main() {
            break;}
      default: {
          cout << "输入有误，请重新输入" << endl;
-         break;
+         
      }
     }
 }
