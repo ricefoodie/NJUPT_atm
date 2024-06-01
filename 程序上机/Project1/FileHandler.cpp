@@ -105,11 +105,11 @@ bool FileHandler::writeStatementToFile(const Statement& statement, const int& ke
     }
 
     // 存入交易信息，格式化为流水编号 账户卡号 交易时间 交易类型 交易金额 对方账户
-    fileOut <<left<<setw(20)<< statement.getID() << setw(13)
-        << EncryptionUtilities::encryptDecrypt(statement.getAccountID(), generateKey(statement.getAccountID())) << " "
-        << statement.getTime() << setw(13)
-        << statement.getType() << setw(13)
-        << statement.getAmount() << setw(13)
+    fileOut << statement.getID() << "  "
+        << EncryptionUtilities::encryptDecrypt(statement.getAccountID(), generateKey(statement.getAccountID())) << "  "
+        << statement.getTime() << "  "
+        << statement.getType() << "  "
+        << statement.getAmount() << "  "
         << EncryptionUtilities::encryptDecrypt(statement.getToAccountID(),generateKey(statement.getToAccountID())) << endl;
     fileOut.close();
     return true;
